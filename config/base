@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# user info
+declare -A user=(
+    [username]="devs"
+    [hostname]="hashtag"
+
+    [shell]="fish"
+
+    [packages_config]="xfce"
+
+    [lightdm_session]="xfce"
+)
+
+# partition management
+declare -A partition=(
+    # grub install partition
+    [grub_install]='/dev/sda'
+
+    # root
+    [root_part]="/dev/sda2"
+    [root_mount]="/mnt"
+    [root_fmt]="mkfs.ext4"
+
+    # swap
+    [swap_part]="/dev/sda3"
+    [swap_fmt]="mkswap"
+
+    # use if uefi vars exists
+    # [uefi_part]="/dev/sda4"
+    # [uefi_mount]="/boot/efi"
+    # [uefi_type]="fat32"
+    # [uefi_fmt]="mkfs.vfat -F32"
+)
+
+# installer options
+declare -A options=(
+    # use local pacman cache
+    [cache]=false
+    [cache_path]="pkg"
+    [cache_install]="${partition[root_mount]}/var/cache/pacman/pkg"
+
+    # fstab
+    [fstab_conf]="${partition[root_mount]}/etc/fstab"
+
+    # only display commands.
+    [debug]=false
+
+    # display commands before run.
+    [display_cmd]=true
+
+    # install options
+    # TODO
+)
