@@ -1,0 +1,167 @@
+#!/usr/bin/env bash
+
+# ask to unmount partitions if its mounted
+function partitionsUnmount() {
+    header "PARTITIONS > ${important}unmount\n"
+
+    grep -qi false <<< "$(YN "do you want to ${important}unmount partitions")" && return
+
+    # check other partitions
+    for part_name in $(grep -o [a-z]*_part <<<"${!partition[@]}"); do
+        local part=${partition[$part_name]}
+        local part_name="$(tr '_' ' ' <<<"$part_name")"
+        local is_mount="$(isMounted "$part")"
+
+        # swap partitions
+        grep -qi "swap" <<<"$is_mount" && {
+            local msg="partition $yellow$part $black-> $yellow$part_name{norm} is enabled as ${important}swap{norm}.
+
+do you want to disable it"
+
+            cmdYN "$msg" "swapoff $part"
+
+            continue
+        }
+
+        # unmount others
+        if [[ ! -z "$is_mount" ]]; then
+            local msg="partition $yellow$part_name $black-> $yellow$part{norm} is mount in $important$is_mount{norm}.
+
+do you want to umount it"
+
+            cmdYN "$msg" "umount -R $is_mount"
+        fi
+    done
+}
+
+# format partitions
+function partitionsFormat() {
+    header "PARTITIONS > ${important}format\n"
+
+    grep -qi false <<< "$(YN "do you want to ${important}format partitions")" && return
+
+    # check other partitions
+    for part_name in $(grep -o [a-z]*_part <<<"${!partition[@]}"); do
+        local part="${partition[$part_name]}"
+        local part_var="$(cut -d'_' -f1 <<<"$part_name")"
+        local part_fmt="${partition[${part_var}_fmt]}"
+        local part_mount="${partition[${part_var}_mount]}"
+
+        # skip parts if values are missing
+        [[ -z "$part_fmt" || -z "$part" ]] && {
+                header "$important$part_name{norm} values missing! skiped!"
+            continue
+        }
+
+        # ask to format
+        newline_sep
+        grep -qi false <<< "$(YN "do you want to format $yellow$part_name $black-> $yellow$part{norm} partition")" && continue
+
+        # format partitions
+        cmd "$part_fmt $part"
+        message "$yellow$part{norm} formatted successfully."
+
+        # mount partition
+        grep -qi "swap" <<<"$part_name" && {
+            cmd "swapon $part"
+            message "$yellow$part{norm} mounted sucessfully."
+
+            continue
+        }
+
+        # mount others
+        cmd "mount $part $part_mount"
+        message "$yellow$part{norm} mounted sucessfully."
+    done
+}
+
+# load pacman packages before installing base ( if enabled in config )
+function packagesLoadCache() {
+    # check cache is eanbled
+    [[ "${options[cache]}" != true ]] && return
+
+    header "PACKAGES > ${important}load packages cache"
+
+    local cache_path="${options[cache_path]}"
+    local cache_install="${options[cache_install]}"
+
+    [[ -z "$cache_path" || -z "$cache_install" ]] && {
+        message "${important}cache{norm} variables are missing!"
+        return
+    }
+
+    message "\ncreating cache folder $yellow$cache_install{norm}"
+    cmd "mkdir -p '$(dirname "$cache_install")'"
+
+    message "\ncopying $yellow$cache_path{norm} to $yellow$cache_install{norm}"
+    cmd "cp -r '$cache_path' '$cache_install'"
+}
+
+# install base packages with pacstrap
+function installBasePackages() {
+    header "PACSTRAP > ${important}install base packages"
+
+    printArray "base packages:" "${base_packages[@]}"
+
+    newline
+
+    grep -qi false <<< "$(YN "do you want to install base packages")" && return
+
+    local basePkgs="$(arrayValues "${base_packages[@]}")"
+
+    [[ -z "$basePkgs" ]] && {
+        message "${important}base packages{norm} are empty!"
+        return
+    }
+
+    cmd "pacstrap -i '${partition[root_mount]}' $basePkgs"
+}
+
+# generate /etc/fstab file
+function generateFstab() {
+    header "FSTAB > ${important}generate\n"
+
+    grep -qi false <<< "$(YN "do you want to generate fstab")" && return
+
+    local fstab_conf="${options[fstab_conf]}"
+    local root_dir="${partition[root_mount]}"
+
+    [[ -z "$fstab_conf" || -z "$root_dir" ]] && {
+        message "${important}fstab{norm} variables are missing!"
+        return
+    }
+
+    cmd "genfstab -U '$root_dir' >> '$fstab_conf'"
+}
+
+# display how to arch-chroot to mounted root
+function archChroot() {
+        header "==> ${green}base section completed.{norm}
+
+continue installation on main file system!
+
+run: ${cmdColor}arch-chroot ${partition[root_mount]}{norm}"
+}
+
+function base() {
+    # welcome message
+    welcomeMessage "base section"
+
+    # ask to unmount partitions if its mounted
+    partitionsUnmount
+
+    # Format partitions
+    partitionsFormat
+
+    # load pacman packages before installing base ( if enabled in config )
+    packagesLoadCache
+
+    # install base packages with pacstrap
+    installBasePackages
+
+    # genfstab
+    generateFstab
+
+    # display how to arch-chroot to mounted root
+    archChroot
+}
