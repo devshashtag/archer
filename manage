@@ -1,0 +1,14 @@
+# devs-arch todos
+[ ] aur packages
+[ ] ignore packages
+[ ] packages cache [path]
+[ ] restore configurations after chroot
+[ ] copy current script to new file system [after chroot or run it if possible]
+
+# need configuration
+- xfce whisker menu
+- xfce panel
+- xfce terminal
+- code
+- fish
+- thunar
