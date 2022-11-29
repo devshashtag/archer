@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+
+# sources
+source config/base
+source "config/${user[packages_config]}"
+
+source archlinux/shell
+source archlinux/base
+source archlinux/system
+
+# default options
+install="base"
+
+# display help when no arguments passed
+[[ $# -eq 0 ]] && installHelp
+
+# parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    -b | --base)   install="base"   ;;
+    -s | --system) install="system" ;;
+    -c | --cache)  options[cache]=true ;;
+    -d | --debug)  options[debug]=true ;;
+    -h | --help)   installHelp      ;;
+    *)             installHelp "$1" ;;
+    esac
+
+    shift # next argument
+done
+
+# execute install section function
+"$install"
