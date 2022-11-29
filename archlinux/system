@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+
+function setTimezone() {
+    header "SYSTEM > ${important}timezone\n"
+
+    grep -qi false <<< "$(YN "do you want to set ${important}timezone")" && return
+
+    cmd "ln -sf /usr/share/zoneinfo/Asia/Tehran /etc/localtime"
+
+    cmd "hwclock --systohc --utc"
+}
+
+function setLocale() {
+    header "SYSTEM > ${important}localization\n"
+
+    grep -qi false <<< "$(YN "do you want to set ${important}locale{norm}")" && return
+
+    cmd 'sed -i "s/#\(en_US\|fa_IR\)\(.\)UTF/\1\2UTF/g" /etc/locale.gen'
+    cmd 'echo "LANG=en_US.UTF-8" >/etc/locale.conf'
+    cmd 'export LANG=en_US.UTF-8'
+    cmd 'locale-gen'
+
+    # removed: LC_TIME=en_US.UTF-8 > locale.conf
+}
+
+function setHostname() {
+    header "SYSTEM > ${important}hostname\n"
+
+    grep -qi false <<< "$(YN "do you want to set ${important}${user[hostname]}{norm} hostname")" && return
+
+    # set hostname
+    cmd "echo '${user[hostname]}' > /etc/hostname"
+}
+
+function addUser() {
+    header "SYSTEM > ${important}user\n"
+
+    grep -qi false <<< "$(YN "do you want to add ${important}${user[username]}{norm} user")" && return
+
+    # adding user to group wheel and defined user shell
+    cmd "useradd -m -g users -G wheel -s '/bin/${user[shell]}' '${user[username]}'"
+
+    # allow wheel group users to use sudo
+    cmd "sed -i 's/# \(%wheel ALL=(ALL:ALL) ALL\)/\1/g' /etc/sudoers"
+}
+
+# change password for user, root
+function changePasswords() {
+    header "SYSTEM > ${important}change passwords"
+
+
+    # user password
+    cmdYN "do you want to set ${important}user{norm} password" "passwd ${user[username]}"
+
+    # root password
+    cmdYN "do you want to set ${important}root{norm} password" "passwd root"
+}
+
+function installBootloader() {
+    header "BOOTLOADER > ${important}GRUB\n"
+
+    grep -qi false <<< "$(YN "do you want to install ${important}grub{norm} bootloader")" && return
+
+    if [[ -z "${partition[uefi_part]}" ]]; then
+        # grub -> for mbr partition table
+        cmd "grub-install ${partition[grub_install]}"
+        cmd "grub-mkconfig -o /boot/grub/grub.cfg"
+    else
+        # grub -> for gpt uefi partition table
+        cmd "grub-install --target=x86_64-efi ${partition[grub_install]}"
+        cmd "grub-mkconfig -o /boot/grub/grub.cfg"
+    fi
+}
+
+# unofficial repositories multilib, archlinuxcn
+function unofficialRepo() {
+    header "SYSTEM > ${important}unofficial repository"
+
+    grep -qi false <<< "$(YN "do you want to add ${important}multilib{norm}, ${important}archlinuxcn{norm} unofficial repositories")" && return
+
+    cmd "echo -e '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n\n[archlinuxcn]\nSigLevel = Never\nServer = https://repo.archlinuxcn.org/\$arch\n' >> /etc/pacman.conf"
+
+    # archlinuxcn: if no siglevel add 'archlinuxcn-keyring' package
+}
+
+function updatePackages() {
+    header "PACMAN > ${important}update packages"
+
+    grep -qi false <<< "$(YN "do you want to ${important}update packages{norm}")" && return
+
+    cmd "pacman -Syu"
+}
+
+# install other packages
+function installOtherPackages() {
+    header "PACMAN > install ${important}system{norm}, ${important}desktop{norm} packages"
+
+    printArray "system packages:" "${system_packages[@]}"
+    printArray "desktop packages:" "${desktop_packages[@]}"
+
+    newline
+    grep -qi false <<< "$(YN "do you want to install ${important}system{norm}, ${important}desktop{norm} packages")" && return
+
+    local pkgs="$(arrayValues "${system_packages[@]}") $(arrayValues "${desktop_packages[@]}")"
+
+    [[ -z "$pkgs" ]] && {
+        message "${important}selected packages{norm} are empty!"
+        return
+    }
+
+    cmd "pacman -S $pkgs"
+}
+
+# enable services
+function enableServices() {
+    header "SYSTEM > ${important}enable services\n"
+
+    # network manager
+    cmdYN "do you want to enable ${important}network manager" "systemctl enable NetworkManager"
+
+    # lightdm
+    newline_sep
+    grep -qi true <<< "$(YN "do you want to enable ${important}lightdm")" && {
+        cmd "systemctl enable lightdm"
+        cmd "echo -e '[Desktop]\nSession=${user[lightdm_session]}' > /home/${user[username]}/.dmrc"
+    }
+
+}
+
+# restore configurations
+#function restoreConfigs() {
+#}
+
+# exit help
+function exitHelp() {
+    header "==> ${green}system section completed.{norm}
+
+after exiting current filesystem with ${cmdColor}exit{norm} command.
+
+make sure to run: ${cmdColor}umount -R '${partition[root_mount]}'"
+}
+
+function system() {
+    # welcome message
+    welcomeMessage "system section"
+
+    # set timezone
+    setTimezone
+
+    # set locale
+    setLocale
+
+    # set hostname
+    setHostname
+
+    # add user
+    addUser
+
+    # change password for user, root
+    changePasswords
+
+    # install bootloader [ grub ]
+    installBootloader
+
+    # unofficial repositories multilib, archlinuxcn
+    unofficialRepo
+
+    # update packages
+    updatePackages
+
+    # install other packages
+    installOtherPackages
+
+    # enable services
+    enableServices
+
+    # restore configurations
+    #restoreConfigs
+
+    # exit help
+    exitHelp
+}
+
+
+# other commands that not included
+
+# virtual environment for python
+# pip install virtualenv
+
+# for irc
+# use erc in emacs
+
+# download film from youtube
+# @utubebot @vid in telegram
+
+# network manager cli connect
+#nmcli d wifi list
+#nmcli d wifi connect "<SSID>" password "<pass>"
+
+# resoultion xrandr
+#xrandr -s 1024x768
+
+# BlueTooth-Manager
+# pkgs: blueman pulseaudio-bluetooth
+
+# get all mirrors
+#sudo curl -L -o /etc/pacman.d/mirrorlist archlinux.org/mirrorlist/all
+#sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
+#rankmirrors -n 6 /etc/pacman.d/mirrorlist >/etc/pacman.d/mirrorlist.bk
