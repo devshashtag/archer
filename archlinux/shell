@@ -1,0 +1,188 @@
+#!/usr/bin/env bash
+
+# colors
+function getColor() {
+    echo -e "\e[$1m"
+}
+
+# 30-40  -> dark colors
+# 90-100 -> light colors
+black="$(getColor 90)"
+red="$(getColor 91)"
+green="$(getColor 92)"
+yellow="$(getColor 93)"
+blue="$(getColor 94)"
+magenta="$(getColor 95)"
+cyan="$(getColor 96)"
+white="$(getColor 97)"
+
+clear="$(echo -e "\e[m")"
+
+# theme
+normal="$black"
+sepColor="$black"
+cmdColor="$white"
+infoColor="$cyan"
+important="$red"
+
+# print a new line
+function newline() { echo; }
+
+# display a message
+function message() {
+    local msg="$(sed "s/{norm}/$normal/g" <<<"$1")"
+
+    echo -e "$normal$msg$clear"
+}
+
+# new-line separator
+function newline_sep() {
+    local color="$sepColor$1"
+
+    message "$color-------------------------------------------------------------"
+}
+
+# run command
+# TODO: add a error detection system to cmd and ask to continue or not
+function cmd() {
+    local command="$@"
+
+    # run control commands
+    local controlCmd="echo 0, echo 1, exit"
+
+    grep -Fqi "$command" <<< "$controlCmd" && {
+        $command
+        return
+    }
+
+    if [[ "${options[debug]}" == true ]]; then
+        message "\n${infoColor}==> $cmdColor$command"
+
+    elif [[ "${options[display_cmd]}" == true ]]; then
+        message "\n${infoColor}==> $cmdColor$command"
+
+        # run command
+        eval "$command"
+
+    elif [[ ! -z "$1" ]]; then
+        # run command
+        eval "$command"
+    fi
+}
+
+# read Yes/no
+function YN() {
+    read -p "$normal$(sed "s/{norm}/$normal/g" <<<"$1") ${green}Y$black/${red}n$black > $blue" req
+    echo -ne "$normal"
+
+    # default is false
+    if [[ "$req" =~ ^[yY] ]]; then
+        echo -n true
+    else
+        echo -n false
+    fi
+}
+
+function cmdYN() {
+    newline_sep
+
+    # check if cmds empty
+    [[ -z "$3" && -z "$2" ]] && return
+
+    # run command
+    local req="$(YN "$1")"
+
+    if grep -qi true <<< "$req"; then
+        cmd "$2"
+    elif grep -qi false <<< "$req"; then
+        cmd "$3"
+    fi
+}
+
+function welcomeMessage() {
+    newline_sep
+    message "welcome to ${important}devs-arch {norm}- Installing ${important}$1" "" "exit"
+}
+
+
+# return array values
+function arrayValues() {
+    sed 's|\w*=||g' <<<"$@"
+}
+
+# pretty print array
+function printArray() {
+    local IFS='='
+
+    name="$normal"
+    pkgs="$normal"
+    desc="$important"
+
+    sep_name="\t$red-->$pkgs"
+    sep_pkg="$blue - $pkgs"
+
+    # description if exists
+    grep -qv '=' <<< "$1" && {
+        newline_sep
+        description="$desc$1"
+        message "$description\n"
+
+        shift
+    }
+
+    for line in "$@"; do
+        # array
+        key="$(cut -d'=' -f 1 <<<"$line")"
+        value="$(cut -d'=' -f 2 <<<"$line" | sed "s/ /$sep_pkg/g")"
+
+        message "${name}$key $sep_name $value"
+    done | column -t -s $'\t' # align by \t sep
+}
+
+# check is partition mounted
+function isMounted() {
+    [[ -z "$1" ]] && return
+
+    lsblk -ny "$1" | grep -o '[^ ]*$' | head -n1
+}
+
+# sections header
+function header() {
+    newline_sep
+    message "$1"
+}
+
+# install help
+function installHelp() {
+    newline_sep
+
+    # check empty args
+    [[ ! -z "$1" ]] && {
+         message "${important}invalid argument {norm}$1$important!"
+         exit 1
+    }
+
+    arg="$cyan"
+    sep_arg="$red | $arg"
+    desc="$black"
+    sep="\t$red -> $desc"
+    msg="$yellow"
+
+    message "${important}devs-arch ${msg}commands:
+
+    $arg -b $sep_arg --base   $sep install base section [before arch-chroot]
+
+    $arg -s $sep_arg --system $sep install system section [after arch-chroot]
+
+    $arg -c $sep_arg --cache  $sep [BEFORE BASE] use pacman cache packages before install
+
+    $arg -d $sep_arg --debug  $sep display commands while running
+
+    $arg -h $sep_arg --help   $sep devs-arch help\n" | column -Lt -s $'\t'
+
+    exit
+}
+
+# print new line at end
+trap "newline_sep" EXIT
+trap "newline;exit" INT
