@@ -160,26 +160,20 @@ function archManagerHelp() {
     }
 
     arg="$cyan"
+    param="$green"
     sep_arg="$red | $arg"
     desc="$black"
     sep="\t$red -> $desc"
-    msg="$yellow"
 
-    message "${important}arch manager ${msg}commands:
+    message "${important}arch manager {norm}commands:
 
-    $arg -i [b|s] $sep_arg --install [b|s] $sep install ArchLinux
-    $arg b $sep_arg base       $sep install base section [before arch-chroot]
-    $arg s $sep_arg system     $sep install system section [after arch-chroot]
-
-    $arg -b [i|e] $sep_arg --backup [i|e] $sep backup files, folders by config-paths
-    $arg i $sep_arg import     $sep import backups from exported backups
-    $arg e $sep_arg export     $sep export backups with config-paths
-
-    $arg -d $sep_arg --debug   $sep only display commands [debug mode]
-
-    $arg -c $sep_arg --cache   $sep [BEFORE BASE] use local pacman packages cache before installing
-
-    $arg -h $sep_arg --help    $sep arch manager help\n" | column -Lt -s $'\t'
+    $arg -ib         $sep_arg --install-base    $sep install base section [before arch-chroot]
+    $arg -is         $sep_arg --install-system  $sep install system section [after arch-chroot]
+    $arg -bi $param'dir'   $sep_arg --backup-import $param'backup path directory' $sep import backups from exported backups
+    $arg -be $param'paths' $sep_arg --backup-export $param'backup paths file'     $sep export backups with config-paths
+    $arg -d          $sep_arg --debug $sep only display commands [debug mode]
+    $arg -c          $sep_arg --cache $sep use local packages cache [BEFORE PACSTRAP]
+    $arg -h          $sep_arg --help  $sep arch manager help\n" | column -Lt -s $'\t'
 
     exit
 }

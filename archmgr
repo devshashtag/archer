@@ -21,35 +21,43 @@ source archlinux/backup
 while [[ $# -gt 0 ]]; do
     case $1 in
         # install archlinux
-        -i | --install)
-            shift
+        -ib | --install-base)   section="base"   ;;
+        -is | --install-system) section="system" ;;
 
-            case $1 in
-                b | base)   section="base"       ;;
-                s | system) section="system"     ;;
-                *)          archManagerHelp "$1" ;;
-            esac
+        # backup export
+        -be | --backup-export)
+            # display help when no arguments passed
+            grep -qi false <<< $(isExist "$2") && {
+                message "$yellow$2 ${important}backup paths file not exist{norm}!\n"
+                archManagerHelp
+            }
+
+            section="exportBackup '$2'"
+
+            shift
         ;;
 
-        # backup configs
-        -b | --backup)
-            shift
+        # backup import
+        -bi | --backup-import)
+            # display help when no arguments passed
+            grep -qi false <<< $(isExist "$2") && {
+                message "$yellow$2 ${important}backup path directory not exist{norm}!\n"
+                archManagerHelp
+            }
 
-            case $1 in
-                e | export)  section="exportBackup" ;;
-                i | import)  section="importBackup" ;;
-                *)           archManagerHelp "$1"   ;;
-            esac
+            section="importBackup '$2'"
+
+            shift
         ;;
 
-    # other options
-    -d | --debug)  options[debug]=true  ;;
-    -h | --help)   archManagerHelp      ;;
-    *)             archManagerHelp "$1" ;;
+        # other options
+        -d | --debug)  options[debug]=true  ;;
+        -h | --help)   archManagerHelp      ;;
+        *)             archManagerHelp "$1" ;;
     esac
 
     shift # next argument
 done
 
 # execute section function
-"$section"
+eval "$section"
