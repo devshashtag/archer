@@ -2,6 +2,7 @@
 [ ] aur packages
 [ ] ignore packages
 [ ] packages cache [path]
+[ ] packages cache YN option
 [ ] restore configurations after chroot
 [ ] copy current script to new file system [after chroot or run it if possible]
 
