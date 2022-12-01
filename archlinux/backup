@@ -9,7 +9,7 @@ function exportBackup() {
     # backup paths info
     newline_sep
 
-    message "${important}backup paths: $yellow$backupPaths\n"
+    message "${important}backup paths: $yellow${backup[paths]}\n"
 
     grep -qi false <<< "$(YN "do you want to continue")" && return
 
@@ -36,9 +36,11 @@ function exportBackup() {
         message "${green}[Loaded]$red ==> {norm}$line"
         paths="$paths$path,"
 
-    done < $backupPaths
+    done < ${backup[paths]}
 
     # export info
+    local backupDir="${backup[dir]}/${backup[export_format]}"
+
     newline_sep
     message "${important}loaded paths: $cyan$loaded\n${important}not exists paths: $cyan$error"
     message "${important}destination path: ${cyan}$backupDir"

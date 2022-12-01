@@ -55,8 +55,11 @@ declare -A options=(
 
 
 # backup
-backupDate="$(date +%Y-%m-%d_%T|tr ':' '-')"
-backupFolder="$USER_$backupDate"
-backupDir="backup/$backupFolder"
+declare -A backup=(
+    # paths to export
+    [paths]='config/backup/home-paths'
 
-backupPaths='config/backup/home-paths'
+    # export directory
+    [dir]="backup"
+    [export_format]="${USER}_$(date +%Y-%m-%d_%T|tr ':' '-')"
+)
