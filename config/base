@@ -57,7 +57,7 @@ declare -A options=(
 # backup
 declare -A backup=(
     # paths to export
-    [paths]='config/backup/home-paths'
+    [export_paths]='config/backup/home-paths'
 
     # export directory
     [dir]="backup"

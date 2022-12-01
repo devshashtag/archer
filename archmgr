@@ -26,6 +26,16 @@ while [[ $# -gt 0 ]]; do
 
         # backup export
         -be | --backup-export)
+            defaultPaths="${backup[export_paths]}"
+
+            # use default paths
+            [[ -e "$defaultPaths" ]] && {
+                section="exportBackup '$defaultPaths'"
+
+                shift
+                continue
+            }
+
             # display help when no arguments passed
             grep -qi false <<< $(isExist "$2") && {
                 message "$yellow$2 ${important}backup paths file not exist{norm}!\n"
@@ -33,7 +43,6 @@ while [[ $# -gt 0 ]]; do
             }
 
             section="exportBackup '$2'"
-
             shift
         ;;
 
