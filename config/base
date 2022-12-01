@@ -52,3 +52,11 @@ declare -A options=(
     # install options
     # TODO
 )
+
+
+# backup
+backupDate="$(date +%Y-%m-%d_%T|tr ':' '-')"
+backupFolder="$USER_$backupDate"
+backupDir="backup/$backupFolder"
+
+backupPaths='config/backup/home-paths'

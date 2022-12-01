@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+function exportBackup() {
+    paths=""
+
+    local loaded=0
+    local error=0
+
+    # backup paths info
+    newline_sep
+
+    message "${important}backup paths: $yellow$backupPaths\n"
+
+    grep -qi false <<< "$(YN "do you want to continue")" && return
+
+    newline_sep
+
+    # check paths
+    while IFS= read -r line; do
+        # skip comments
+        grep -qE "(^#|^$)" <<< "$line" && continue
+
+        path="$(sed "s|^~/|$HOME/|" <<< $line)"
+
+        # skip non-existing paths
+        [ ! -e "$path" ] && {
+            message "${red}[Error ] ==> $yellow$line ${important}path not exist!"
+
+            let error++
+
+            continue
+        }
+
+        let loaded++
+
+        message "${green}[Loaded]$red ==> {norm}$line"
+        paths="$paths$path,"
+
+    done < $backupPaths
+
+    # export info
+    newline_sep
+    message "${important}loaded paths: $cyan$loaded\n${important}not exists paths: $cyan$error"
+    message "${important}destination path: ${cyan}$backupDir"
+
+    newline
+
+    grep -qi false <<< "$(YN "${yellow}do you want to export loaded paths")" && return
+    newline_sep
+
+    # export paths
+    paths="$(sed "s|,$||" <<< "${paths[@]}")"
+
+    savedColor="$cmdColor"
+    cmdColor="$normal"
+
+    cmd "mkdir -p $backupDir"
+
+    local IFS=','
+    let index=0
+
+    for path in ${paths[@]};do
+        local exportPath="$backupDir$(dirname $path)"
+
+        # create nested backup dirs if not exist
+        [ ! -e "$exportPath" ] && {
+            cmdColor="$normal"
+            cmd "mkdir -p '$exportPath'"
+        }
+
+
+        # export
+        cmdColor="$yellow"
+        cmd "cp -ra '$path' '$exportPath'"
+    done
+
+    cmdColor="$savedColor"
+}

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# configs
+source config/base
+source "config/${user[packages_config]}"
+
+# functions
+source archlinux/shell
+
+# arch installer
+source archlinux/base
+source archlinux/system
+
+# backup
+source archlinux/backup
+
+# display help when no arguments passed
+[[ $# -eq 0 ]] && archManagerHelp
+
+# parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        # install archlinux
+        -i | --install)
+            shift
+
+            case $1 in
+                b | base)   section="base"       ;;
+                s | system) section="system"     ;;
+                *)          archManagerHelp "$1" ;;
+            esac
+        ;;
+
+        # backup configs
+        -b | --backup)
+            shift
+
+            case $1 in
+                e | export)  section="exportBackup" ;;
+                i | import)  section="importBackup" ;;
+                *)           archManagerHelp "$1"   ;;
+            esac
+        ;;
+
+    # other options
+    -d | --debug)  options[debug]=true  ;;
+    -h | --help)   archManagerHelp      ;;
+    *)             archManagerHelp "$1" ;;
+    esac
+
+    shift # next argument
+done
+
+# execute section function
+"$section"
