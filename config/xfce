@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 base_packages=(
-    base="base base-devel linux linux-firmware sudo" #archlinux-keyring"
-    shell="bash base-completion ${user[shell]}"
+    base="base base-devel linux linux-firmware" #archlinux-keyring sudo"
+    shell="bash bash-completion ${user[shell]}"
     bootloader="grub" # efibootmgr"
     editor="neovim" # vim"
 )
