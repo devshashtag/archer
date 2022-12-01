@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function exportBackup() {
-    paths=""
+    local paths=""
 
     local loaded=0
     local error=0
@@ -20,7 +20,7 @@ function exportBackup() {
         # skip comments
         grep -qE "(^#|^$)" <<< "$line" && continue
 
-        path="$(sed "s|^~/|$HOME/|" <<< $line)"
+        local path="$(sed "s|^~/|$HOME/|" <<< $line)"
 
         # skip non-existing paths
         [ ! -e "$path" ] && {
@@ -73,6 +73,9 @@ function exportBackup() {
 
         # export
         cmdColor="$yellow"
+
+        grep -qi "$HOME" <<< "$path" && echo -n "yes \t "
+
         cmd "cp -ra '$path' '$exportPath'"
     done
 

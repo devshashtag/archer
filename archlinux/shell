@@ -99,7 +99,7 @@ function cmdYN() {
 
 function welcomeMessage() {
     newline_sep
-    message "welcome to ${important}devs-arch {norm}- Installing ${important}$1" "" "exit"
+    message "welcome to ${important}arch manager {norm}- Installing ${important}$1" "" "exit"
 }
 
 
@@ -150,14 +150,13 @@ function header() {
     message "$1"
 }
 
-# devs arch help
+# arch manager help
 function archManagerHelp() {
     newline_sep
 
     # check empty args
     [[ ! -z "$1" ]] && {
-         message "${important}invalid argument {norm}$1$important!"
-         exit 1
+         message "${important}invalid argument {norm}$1$important!\n"
     }
 
     arg="$cyan"
@@ -166,7 +165,7 @@ function archManagerHelp() {
     sep="\t$red -> $desc"
     msg="$yellow"
 
-    message "${important}devs-arch ${msg}commands:
+    message "${important}arch manager ${msg}commands:
 
     $arg -i [b|s] $sep_arg --install [b|s] $sep install ArchLinux
     $arg b $sep_arg base       $sep install base section [before arch-chroot]
@@ -180,7 +179,7 @@ function archManagerHelp() {
 
     $arg -c $sep_arg --cache   $sep [BEFORE BASE] use local pacman packages cache before installing
 
-    $arg -h $sep_arg --help    $sep devs-arch help\n" | column -Lt -s $'\t'
+    $arg -h $sep_arg --help    $sep arch manager help\n" | column -Lt -s $'\t'
 
     exit
 }
