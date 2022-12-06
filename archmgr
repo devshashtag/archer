@@ -26,11 +26,9 @@ while [[ $# -gt 0 ]]; do
 
         # backup export
         -be | --backup-export)
-            defaultPaths="${backup[export_paths]}"
-
             # use default paths
-            [[ -e "$defaultPaths" ]] && {
-                section="exportBackup '$defaultPaths'"
+            [[ -e "${backup[export_paths]}" ]] && {
+                section="exportBackup '${backup[export_paths]}'"
 
                 shift
                 continue
@@ -48,7 +46,16 @@ while [[ $# -gt 0 ]]; do
 
         # backup import
         -bi | --backup-import)
+            # use default directory
+            [[ -e "${backup[import_dir]}" ]] && {
+                section="importBackup '${backup[import_dir]}'"
+
+                shift
+                continue
+            }
+
             # display help when no arguments passed
+            ls "$2"
             grep -qi false <<< $(isExist "$2") && {
                 message "$yellow$2 ${important}backup path directory not exist{norm}!\n"
                 archManagerHelp

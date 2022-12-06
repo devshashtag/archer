@@ -127,9 +127,10 @@ function enableServices() {
 
 }
 
-# restore configurations
-#function restoreConfigs() {
-#}
+# # restore configurations
+# function restoreConfigs() {
+#     header "SYSTEM > ${important}restore configs\n"
+# }
 
 # exit help
 function exitHelp() {
@@ -175,7 +176,7 @@ function system() {
     enableServices
 
     # restore configurations
-    #restoreConfigs
+    # restoreConfigs
 
     # exit help
     exitHelp

@@ -4,13 +4,17 @@ function copy() {
     local src="$1"
     local dest="$2"
 
-    cmd "cp -r --parents '$src' '$dest'"
+    cmd "cp -ra '$src' '$dest'"
 }
 
-function isExist(){
-    local path="$(sed "s|^~/|$HOME/|" <<< "$1")"
+# absolute path
+function absPath() { sed "s|^~|$HOME|" <<< "$1"; }
 
-    if [ -e "$path" ]; then
+# join two path
+join_path() { echo "${1:+$1/}$2" | sed 's#//#/#g'; }
+
+function isExist(){
+    if [ -e "$(absPath "$1")" ]; then
         echo true
     else
         echo false
@@ -18,7 +22,6 @@ function isExist(){
 }
 
 function loadPaths(){
-
     local backupPaths="$1"
 
     # check paths
@@ -26,8 +29,7 @@ function loadPaths(){
         # skip comments, empty lines
         grep -qE "(^#|^$)" <<< "$line" && continue
 
-        # absolute path
-        local path="$(sed "s|^~/|$HOME/|" <<< $line)"
+        local path="$(absPath "$line")"
 
         # check if paths exist
         if grep -qi true <<< $(isExist "$path"); then
@@ -42,17 +44,14 @@ function loadPaths(){
 
             let error++
         fi
-
     done < "$backupPaths"
 
-    paths="$(sed "s|,$||" <<< "${paths[@]}")"
-
-
+    paths="${paths%,}"
 }
 
 function exportBackup() {
     local backupPaths="$1"
-    local backupDir="${backup[dir]}/${backup[export_format]}"
+    local backupDir="$(join_path "${backup[dir]}" "${backup[export_format]}")"
     local loaded=0
     local error=0
     local paths
@@ -76,10 +75,37 @@ function exportBackup() {
     local IFS=','
 
     savedColor="$cmdColor"
+
+    for src in ${paths[@]};do
+        local exportPath="$(join_path "$backupDir" "$(dirname $src)")"
+
+        # create nested backup dirs if not exist
+        if grep -qi false <<< $(isExist "$exportPath"); then
+            cmdColor="$normal"
+            cmd "mkdir -p '$exportPath'"
+        fi
+
+        # export
+        cmdColor="$yellow"
+        copy "$src" "$exportPath"
+    done
+
+    cmdColor="$savedColor"
+}
+
+function importBackup() {
+    local backupDir="$1"
+    local backupDirs="$(find "$backupDir" -mindepth 1 -maxdepth 1 -exec basename {} \;)"
+    local dest="/"
+    local IFS=$'\n'
+
+    savedColor="$cmdColor"
     cmdColor="$yellow"
 
-    for path in ${paths[@]};do
-        copy "$path" "$backupDir/"
+    for path in ${backupDirs[@]};do
+        local src="$(join_path "$backupDir" "$path")"
+
+        copy "$src" "$dest"
     done
 
     cmdColor="$savedColor"
