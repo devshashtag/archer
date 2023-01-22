@@ -26,19 +26,19 @@ function setLocale() {
 function setHostname() {
     header "SYSTEM > ${important}hostname\n"
 
-    grep -qi false <<< "$(YN "do you want to set ${important}${user[hostname]}{norm} hostname")" && return
+    grep -qi false <<< "$(YN "do you want to set ${important}${options[hostname]}{norm} hostname")" && return
 
     # set hostname
-    cmd "echo '${user[hostname]}' > /etc/hostname"
+    cmd "echo '${options[hostname]}' > /etc/hostname"
 }
 
 function addUser() {
     header "SYSTEM > ${important}user\n"
 
-    grep -qi false <<< "$(YN "do you want to add ${important}${user[username]}{norm} user")" && return
+    grep -qi false <<< "$(YN "do you want to add ${important}${options[username]}{norm} user")" && return
 
     # adding user to group wheel and defined user shell
-    cmd "useradd -m -g users -G wheel -s '/bin/${user[shell]}' '${user[username]}'"
+    cmd "useradd -m -g users -G wheel -s '/bin/${options[default_shell]}' '${options[username]}'"
 
     # allow wheel group users to use sudo
     cmd "sed -i 's/# \(%wheel ALL=(ALL:ALL) ALL\)/\1/g' /etc/sudoers"
@@ -50,7 +50,7 @@ function changePasswords() {
 
 
     # user password
-    cmdYN "do you want to set ${important}user{norm} password" "passwd ${user[username]}"
+    cmdYN "do you want to set ${important}user{norm} password" "passwd ${options[username]}"
 
     # root password
     cmdYN "do you want to set ${important}root{norm} password" "passwd root"
@@ -61,13 +61,13 @@ function installBootloader() {
 
     grep -qi false <<< "$(YN "do you want to install ${important}grub{norm} bootloader")" && return
 
-    if [[ -z "${partition[uefi_part]}" ]]; then
+    if [[ -z "${partitions[uefi_part]}" ]]; then
         # grub -> for mbr partition table
-        cmd "grub-install ${partition[grub_install]}"
+        cmd "grub-install ${partitions[grub_install]}"
         cmd "grub-mkconfig -o /boot/grub/grub.cfg"
     else
         # grub -> for gpt uefi partition table
-        cmd "grub-install --target=x86_64-efi ${partition[grub_install]}"
+        cmd "grub-install --target=x86_64-efi ${partitions[grub_install]}"
         cmd "grub-mkconfig -o /boot/grub/grub.cfg"
     fi
 }
@@ -122,7 +122,7 @@ function enableServices() {
     newline_sep
     grep -qi true <<< "$(YN "do you want to enable ${important}lightdm")" && {
         cmd "systemctl enable lightdm"
-        cmd "echo -e '[Desktop]\nSession=${user[lightdm_session]}' > /home/${user[username]}/.dmrc"
+        cmd "echo -e '[Desktop]\nSession=${options[lightdm_session]}' > /home/${options[username]}/.dmrc"
     }
 
 }
@@ -138,7 +138,7 @@ function exitHelp() {
 
 after exiting current filesystem with ${cmdColor}exit{norm} command.
 
-make sure to run: ${cmdColor}umount -R '${partition[root_mount]}'"
+make sure to run: ${cmdColor}umount -R '${partitions[root_mount]}'"
 }
 
 function system() {

@@ -51,7 +51,5 @@ grep -q true <<< "$option_debug" && {
     options[debug]=true
 }
 
-echo ${options[username]}
-
 # execute section function
-# eval "$section"
+eval "$section"

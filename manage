@@ -1,6 +1,6 @@
 # archer todos
-[ ] aur packages
-[ ] ignore packages
-[ ] packages cache [path]
-[ ] packages cache YN option
-
+- [ ] aur packages
+- [ ] ignore packages
+- [ ] packages cache [path]
+- [ ] packages cache YN option
+- [ ] add a option to run last part of installation

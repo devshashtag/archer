@@ -7,8 +7,8 @@ function partitionsUnmount() {
     grep -qi false <<< "$(YN "do you want to ${important}unmount partitions")" && return
 
     # check other partitions
-    for part_name in $(grep -o [a-z]*_part <<<"${!partition[@]}"); do
-        local part=${partition[$part_name]}
+    for part_name in $(grep -o [a-z]*_part <<<"${!partitions[@]}"); do
+        local part=${partitions[$part_name]}
         local part_name="$(tr '_' ' ' <<<"$part_name")"
         local is_mount="$(isMounted "$part")"
 
@@ -41,11 +41,11 @@ function partitionsFormat() {
     grep -qi false <<< "$(YN "do you want to ${important}format partitions")" && return
 
     # check other partitions
-    for part_name in $(grep -o [a-z]*_part <<<"${!partition[@]}"); do
-        local part="${partition[$part_name]}"
+    for part_name in $(grep -o [a-z]*_part <<<"${!partitions[@]}"); do
+        local part="${partitions[$part_name]}"
         local part_var="$(cut -d'_' -f1 <<<"$part_name")"
-        local part_fmt="${partition[${part_var}_fmt]}"
-        local part_mount="${partition[${part_var}_mount]}"
+        local part_fmt="${partitions[${part_var}_fmt]}"
+        local part_mount="${partitions[${part_var}_mount]}"
 
         # skip parts if values are missing
         [[ -z "$part_fmt" || -z "$part" ]] && {
@@ -83,9 +83,10 @@ function packagesLoadCache() {
     header "PACKAGES > ${important}load packages cache"
 
     local cache_path="${options[cache_path]}"
-    local cache_install="${options[cache_install]}"
+    local root_dir="${partitions[root_mount]}"
+    local cache_install="${root_dir}/var/cache/pacman/pkg"
 
-    [[ -z "$cache_path" || -z "$cache_install" ]] && {
+    [[ -z "$cache_path" || -z "$root_dir" ]] && {
         message "${important}cache{norm} variables are missing!"
         return
     }
@@ -114,7 +115,7 @@ function installBasePackages() {
         return
     }
 
-    cmd "pacstrap -i '${partition[root_mount]}' $basePkgs"
+    cmd "pacstrap -i '${partitions[root_mount]}' $basePkgs"
 }
 
 # generate /etc/fstab file
@@ -123,11 +124,11 @@ function generateFstab() {
 
     grep -qi false <<< "$(YN "do you want to generate fstab")" && return
 
-    local fstab_conf="${options[fstab_conf]}"
-    local root_dir="${partition[root_mount]}"
+    local root_dir="${partitions[root_mount]}"
+    local fstab_conf="${root_dir}/etc/fstab"
 
-    [[ -z "$fstab_conf" || -z "$root_dir" ]] && {
-        message "${important}fstab{norm} variables are missing!"
+    [[ -z "$root_dir" ]] && {
+        message "${important}root directory{norm} variable is missing!"
         return
     }
 
@@ -140,7 +141,7 @@ function archChroot() {
 
 continue installation on main file system!
 
-run: ${cmdColor}arch-chroot ${partition[root_mount]}{norm}"
+run: ${cmdColor}arch-chroot ${partitions[root_mount]}{norm}"
 }
 
 function base() {

@@ -2,7 +2,7 @@ options = {
   username: "arch"
   hostname: "lover"
 
-  lightdm: "xfce"
+  lightdm_session: "xfce"
   default_shell: "fish"
 
   # local pacman cache
@@ -16,10 +16,6 @@ options = {
 
   # display and run commands.
   display_cmd: "true"
-
-  # TODO: move to core
-  cache_install:"/mnt/var/cache/pacman/pkg"
-  fstab_conf: "/mnt/etc/fstab"
 }
 
 # partition management
@@ -37,9 +33,9 @@ partitions = {
   swap_fmt: "mkswap"
 
   # TODO: use if uefi vars exists
-  uefi_part: "/dev/sda4"
-  uefi_mount: "/boot/efi"
-  uefi_fmt: "mkfs.vfat -F32"
+  #uefi_part: "/dev/sda4"
+  #uefi_mount: "/boot/efi"
+  #uefi_fmt: "mkfs.vfat -F32"
 }
 
 base_packages = {
