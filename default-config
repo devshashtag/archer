@@ -1,0 +1,142 @@
+options = {
+  username: "arch"
+  hostname: "lover"
+
+  lightdm: "xfce"
+  default_shell: "fish"
+
+  # local pacman cache
+  cache: "false"
+  cache_path: "pkg"
+
+  # installer options
+
+  # only display commands.
+  debug: "false"
+
+  # display and run commands.
+  display_cmd: "true"
+
+  # TODO: move to core
+  cache_install:"/mnt/var/cache/pacman/pkg"
+  fstab_conf: "/mnt/etc/fstab"
+}
+
+# partition management
+partitions = {
+  # grub install partition
+  grub_install: "/dev/sda"
+
+  # root
+  root_part: "/dev/sda2"
+  root_mount: "/mnt"
+  root_fmt: "mkfs.ext4"
+
+  # swap
+  swap_part: "/dev/sda3"
+  swap_fmt: "mkswap"
+
+  # TODO: use if uefi vars exists
+  uefi_part: "/dev/sda4"
+  uefi_mount: "/boot/efi"
+  uefi_fmt: "mkfs.vfat -F32"
+}
+
+base_packages = {
+    base: "base base-devel linux linux-firmware" #archlinux-keyring sudo"
+    shell: "bash bash-completion fish"
+    bootloader: "grub" # efibootmgr"
+    editor: "neovim" # vim"
+}
+
+system_packages = {
+    display_server: "xorg xorg-xinit xterm xf86-video-intel"
+    #keyboard_input: "xorg-xinput xf86-input-libinput" # for laptop touchpad
+    display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
+    network_manager: "networkmanager network-manager-applet"
+    #network_tools: "openssh"
+    sound_server: "pulseaudio pulseaudio-alsa"
+    sound_tools: "pavucontrol alsa-utils"
+    fonts: "ttf-dejavu ttf-hack ttf-fira-code ttf-opensans" # noto-fonts"
+    icons: "papirus-icon-theme"
+
+    system_tools: "zip unzip unrar neofetch ripgrep htop tree man yay vnstat"
+    #system_tools: "youtube-dl tmux numlockx"
+}
+
+desktop_packages = {
+    desktop: "xfce4 xfce4-notifyd"
+    plugins: "xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager"
+    # other plugins
+    #xfce4-battery-plugin - usage: laptop
+    #xfce4-genmon-plugin - custom scripts
+    #xfce4-timer-plugin - timer
+
+    # file manager
+    file_manager: "thunar thunar-volman thunar-archive-plugin"
+    file_manager_tools: "gvfs gvfs-mtp"
+    archive_manager: "file-roller"
+    #gvfs-afc - apple
+    #gvfs-smb - windows file and printer sharing
+    #sshfs: FUSE client based on the SSH File Transfer Protocol
+    #ntfs-3g - open source implementation of Microsoft NTFS
+
+    # applications
+    browser: "chromium"
+    media_player: "mpv"
+    screenshot: "flameshot"
+    image_viewer: "ristretto"
+    document_viewer: "okular"
+    image_manipulation: "gimp"
+    clipboard_manager: "copyq"
+    messenger: "telegram-desktop"
+    screen_recorder: "simplescreenrecorder"
+    #browser: "firefox"
+    #image_viewer: "feh viewnior"
+    #email_client: "thunderbrid"
+    #translator: "crow-translate" # available in unofficial repos
+
+    # programing tools
+    editor: "emacs-nativecomp"
+    programming_tools: "git" # neovim code"
+
+    # programming languages
+    node: "nodejs npm"
+    python: "python3 python-pip python-virtualenv"
+
+    # proxy
+    proxy_tools: "tor proxychains-ng"
+}
+
+# TODO: ignore these packages
+# ignore_packages = {
+#     desktop: "xfce4-appfinder xfce4-power-manager"
+# }
+
+# TODO: arch user repositories
+# packages_aur = {
+#     jalali_calendar: "jcal-git"
+#     remote_desktop: "anydesk-bin"
+#     proxy: "obfs4proxy"
+# }
+
+# need to check packages:
+#     iwctl
+#     dnsutils
+#
+# commands:
+#     xfce4-popup-whiskermenu
+#
+# window manager packages
+#
+# window_manager="awesome"
+# compositor="picom"
+# status_bar="polybar"
+# application_launcher="rofi dmenu"
+# volume_tray="volumeicon"
+# desktop_background="nitrogen"
+# file_manager="nemo"
+# terminal="alacritty terminator"
+#
+# ranger
+# trash-cli - file manager trash
