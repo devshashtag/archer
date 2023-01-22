@@ -36,7 +36,7 @@ function fixObjectSyntax() {
 }
 
 # read config
-config="$(sed 's/#.*$//g' ../config | # remove comments
+config="$(sed 's/#.*$//g' "$1" | # remove comments
     sed '/^\s*$/d'   |  # remove empty lines
     tr '\n' ' '      |  # remove new lines
     tr ':{}' '=()'   |  # fix objects syntax
