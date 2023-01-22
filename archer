@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# functions
+source archlinux/shell
+
+# arch installer
+source archlinux/base
+source archlinux/system
+
+# display help when no arguments passed
+[[ $# -eq 0 ]] && archerHelp
+
+
+# default values
+section="base"
+config_path="config/default-config"
+option_debug=false
+
+# parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        # install archlinux
+        -b | --base)   section="base"   ;;
+        -s | --system) section="system" ;;
+        -c | --config)
+                shift
+                path="$1"
+
+                grep -qi false <<< $(isFileExist "$2") && {
+                    message "$yellow$1 ${important}config file does not exist{norm}!\n"
+                    exit
+                }
+
+                config_path="$path"
+        ;;
+
+        # other options
+        -d | --debug)  option_debug=true    ;;
+        -h | --help)   archerHelp      ;;
+        *)             archerHelp "$1" ;;
+    esac
+
+    shift # next argument
+done
+
+# parse config file
+source archlinux/parser "$config_path"
+
+# set debug option
+grep -q true <<< "$option_debug" && {
+    options[debug]=true
+}
+
+echo ${options[username]}
+
+# execute section function
+# eval "$section"

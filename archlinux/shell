@@ -40,6 +40,15 @@ function newline_sep() {
     message "$color-------------------------------------------------------------"
 }
 
+# check path is exist
+function isFileExist(){
+    if [ -f "$(sed "s|^~|$HOME|" <<< "$1")" ]; then
+        echo true
+    else
+        echo false
+    fi
+}
+
 # run command
 # TODO: add a error detection system to cmd and ask to continue or not
 function cmd() {
@@ -99,7 +108,7 @@ function cmdYN() {
 
 function welcomeMessage() {
     newline_sep
-    message "welcome to ${important}arch manager {norm}- Installing ${important}$1" "" "exit"
+    message "welcome to ${important}archer {norm}- Installing ${important}$1" "" "exit"
 }
 
 
@@ -150,8 +159,8 @@ function header() {
     message "$1"
 }
 
-# arch manager help
-function archManagerHelp() {
+# archer help
+function archerHelp() {
     newline_sep
 
     # check empty args
@@ -165,15 +174,14 @@ function archManagerHelp() {
     desc="$black"
     sep="\t$red -> $desc"
 
-    message "${important}arch manager {norm}commands:
+    message "${important}archer {norm}commands:
 
-    $arg -ib         $sep_arg --install-base    $sep install base section [before arch-chroot]
-    $arg -is         $sep_arg --install-system  $sep install system section [after arch-chroot]
-    $arg -bi $param'dir'   $sep_arg --backup-import $param'backup path directory' $sep import backups from exported backups
-    $arg -be $param'paths' $sep_arg --backup-export $param'backup paths file'     $sep export backups with config-paths
-    $arg -d          $sep_arg --debug $sep only display commands [debug mode]
-    $arg -c          $sep_arg --cache $sep use local packages cache [BEFORE PACSTRAP]
-    $arg -h          $sep_arg --help  $sep arch manager help\n" | column -Lt -s $'\t'
+    $arg -b $sep_arg --base    $sep install base section [before arch-chroot]
+    $arg -s $sep_arg --system  $sep install system section [after arch-chroot]
+    $arg -c $sep_arg --config  $param'config file path'     $sep installer config
+    $arg -d $sep_arg --debug   $sep only display commands [debug mode]
+    $arg -c $sep_arg --cache   $sep use local packages cache [BEFORE PACSTRAP]
+    $arg -h $sep_arg --help    $sep archer help\n" | column -Lt -s $'\t'
 
     exit
 }
