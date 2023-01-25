@@ -4,3 +4,7 @@
 - [ ] packages cache [path]
 - [ ] packages cache YN option
 - [ ] add a option to run last part of installation
+- [ ] pacstrap use local cache "pacstrap -c /mnt/ --cachedir /path_to_custom_cache_dir"
+- [ ] install efibootmgr for uefi systems
+- [ ] change grub timeout to 0
+
