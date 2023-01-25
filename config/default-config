@@ -28,17 +28,23 @@ partitions = {
   root_mount: "/mnt"
   root_fmt: "mkfs.ext4"
 
+  # i dont use home - instead i use a DATA partition
+  # home
+  # home_part: "/dev/sda5"
+  # home_mount: "/mnt/home"
+  # home_fmt: "mkfs.ext4"
+
   # swap
   swap_part: "/dev/sda3"
   swap_fmt: "mkswap"
 
-  # TODO: use if uefi vars exists
-  #uefi_part: "/dev/sda4"
-  #uefi_mount: "/boot/efi"
-  #uefi_fmt: "mkfs.vfat -F32"
+  # TODO: required uefi support
+  # uefi_part: "/dev/sda4"
+  # uefi_mount: "/boot/efi"
+  # uefi_fmt: "mkfs.vfat -F32"
 }
 
-base_packages = {
+core_packages = {
     base: "base base-devel linux linux-firmware" #archlinux-keyring sudo"
     shell: "bash bash-completion fish"
     bootloader: "grub" # efibootmgr"
@@ -60,7 +66,7 @@ system_packages = {
     #system_tools: "youtube-dl tmux numlockx"
 }
 
-desktop_packages = {
+application_packages = {
     desktop: "xfce4 xfce4-notifyd"
     plugins: "xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager"
     # other plugins
