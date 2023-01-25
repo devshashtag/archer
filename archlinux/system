@@ -96,12 +96,12 @@ function installOtherPackages() {
     header "PACMAN > install ${important}system{norm}, ${important}desktop{norm} packages"
 
     printArray "system packages:" "${system_packages[@]}"
-    printArray "desktop packages:" "${desktop_packages[@]}"
+    printArray "application packages:" "${application_packages[@]}"
 
     newline
-    grep -qi false <<< "$(YN "do you want to install ${important}system{norm}, ${important}desktop{norm} packages")" && return
+    grep -qi false <<< "$(YN "do you want to install ${important}system{norm}, ${important}application{norm} packages")" && return
 
-    local pkgs="$(arrayValues "${system_packages[@]}") $(arrayValues "${desktop_packages[@]}")"
+    local pkgs="$(arrayValues "${system_packages[@]}") $(arrayValues "${application_packages[@]}")"
 
     [[ -z "$pkgs" ]] && {
         message "${important}selected packages{norm} are empty!"

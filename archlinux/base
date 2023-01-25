@@ -102,13 +102,13 @@ function packagesLoadCache() {
 function installBasePackages() {
     header "PACSTRAP > ${important}install base packages"
 
-    printArray "base packages:" "${base_packages[@]}"
+    printArray "core packages:" "${core_packages[@]}"
 
     newline
 
-    grep -qi false <<< "$(YN "do you want to install base packages")" && return
+    grep -qi false <<< "$(YN "do you want to install core packages")" && return
 
-    local basePkgs="$(arrayValues "${base_packages[@]}")"
+    local basePkgs="$(arrayValues "${core_packages[@]}")"
 
     [[ -z "$basePkgs" ]] && {
         message "${important}base packages{norm} are empty!"

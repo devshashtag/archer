@@ -1,0 +1,99 @@
+# ------------------------------ options --------------------------------
+
+options = {
+  username: "neo"
+  hostname: "dev"
+
+  lightdm_session: "awesome"
+  default_shell: "fish"
+
+  cache: "true"
+  cache_path: "pkg"
+
+  # archer options
+  display_cmd: "true"
+  debug: "false"
+}
+
+# ------------------------ partition management -------------------------
+
+partitions = {
+  grub_install: "/dev/sda"
+
+  root_part: "/dev/sda2"
+  root_mount: "/mnt"
+  root_fmt: "mkfs.ext4"
+
+  swap_part: "/dev/sda3"
+  swap_fmt: "mkswap"
+}
+
+# ---------------------------- base packages ----------------------------
+
+core_packages = {
+  base: "base base-devel linux linux-firmware" 
+  shell: "fish bash bash-completion"
+  boot_loader: "grub"
+  editor: "vim"
+}
+
+# --------------------------- system packages ---------------------------
+
+system_packages = {
+  window_system: "xorg-server xorg-apps xorg-xinit xterm xclip"
+  video_drivers: "xf86-video-intel"
+  network: "networkmanager network-manager-applet"
+  sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils volumeicon"
+  fonts: "noto-fonts ttf-dejavu ttf-hack ttf-fira-code ttf-opensans"
+  tools: "man-db zip unzip unrar screenfetch ripgrep-all"
+  AUR: "yay"
+
+  display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
+  window_manager: "awesome"
+  compositor: "picom"
+  status_bar: "polybar"
+  launcher: "rofi"
+  terminal: "alacritty"
+  icon: "papirus-icon-theme"
+  file_manager: "nemo nemo-fileroller gvfs gvfs-mtp"
+
+  # task_manager
+  # trash_management: "trash-cli"
+}
+
+# --------------------------- desktop packages ---------------------------
+
+application_packages = {
+  browser: "firefox"
+  media_player: "mpv"
+  screenshot: "flameshot"
+  image_viewer: "viewnior"
+  document_viewer: "okular"
+  image_manipulation: "gimp"
+  messenger: "telegram-desktop"
+  screen_recorder: "simplescreenrecorder"
+  archive_manager: "file-roller"
+  clipboard_manager: "copyq"
+  #email_client: "thunderbrid"
+
+  # programing
+  programming_languages: "nodejs npm python3 python-pip python-virtualenv"
+  programming_tools: "git neovim"
+}
+
+# -----------------------------------------------------------------------
+
+# TODO: ignore these packages
+# ignore_packages = {
+#     desktop: "xfce4-appfinder xfce4-power-manager"
+# }
+
+# TODO: arch user repositories
+# packages_aur = {
+#     jalali_calendar: "jcal-git"
+#     remote_desktop: "anydesk-bin"
+#     proxy: "obfs4proxy"
+# }
+
+# translator: "crow-translate" # available in unofficial repos
+
