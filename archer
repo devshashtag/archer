@@ -23,15 +23,15 @@ while [[ $# -gt 0 ]]; do
         -b | --base)   section="base"   ;;
         -s | --system) section="system" ;;
         -c | --config)
-                shift
-                path="$1"
+            shift
+            path="$1"
 
-                grep -qi false <<< $(isFileExist "$2") && {
-                    message "$yellow$1 ${important}config file does not exist{norm}!\n"
-                    exit
-                }
+            grep -qi false <<< $(isFileExist "$path") && {
+                message "$yellow$path ${important}config file does not exist{norm}!\n"
+                exit
+            }
 
-                config_path="$path"
+            config_path="$path"
         ;;
 
         # other options
