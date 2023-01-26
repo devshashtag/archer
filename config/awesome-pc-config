@@ -44,7 +44,7 @@ system_packages = {
   video_drivers: "xf86-video-intel"
   network: "networkmanager network-manager-applet"
   sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils volumeicon"
-  fonts: "noto-fonts ttf-fira-code ttf-opensans" 
+  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu" 
   icons: "papirus-icon-theme"
   tools: "man-db btop neofetch"
 
