@@ -34,7 +34,7 @@ core_packages = {
   base: "base base-devel linux linux-firmware" 
   shell: "fish bash bash-completion"
   boot_loader: "grub"
-  editor: "vim"
+  editor: "neovim"
 }
 
 # --------------------------- system packages ---------------------------
@@ -44,48 +44,42 @@ system_packages = {
   video_drivers: "xf86-video-intel"
   network: "networkmanager network-manager-applet"
   sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils volumeicon"
-  fonts: "noto-fonts ttf-dejavu ttf-hack ttf-fira-code ttf-opensans"
-  tools: "man-db zip unzip unrar screenfetch ripgrep-all"
-  AUR: "yay"
+  fonts: "noto-fonts ttf-fira-code ttf-opensans" 
+  icons: "papirus-icon-theme"
+  tools: "man-db btop neofetch"
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   window_manager: "awesome"
+  archive_manager: "atool zip unzip unrar"
+  file_manager: "ranger"
   compositor: "picom"
-  status_bar: "polybar"
   launcher: "rofi"
   terminal: "alacritty"
-  icon: "papirus-icon-theme"
-  file_manager: "nemo nemo-fileroller gvfs gvfs-mtp"
-
-  # task_manager
-  # trash_management: "trash-cli"
+  #task_manager
 }
 
 # --------------------------- desktop packages ---------------------------
 
 application_packages = {
   browser: "firefox"
-  media_player: "mpv"
   screenshot: "flameshot"
+  media_player: "mpv"
   image_viewer: "viewnior"
   document_viewer: "okular"
-  image_manipulation: "gimp"
-  messenger: "telegram-desktop"
-  screen_recorder: "simplescreenrecorder"
-  archive_manager: "file-roller"
+  download_manager: "aria2"
   clipboard_manager: "copyq"
-  #email_client: "thunderbrid"
+  screen_recorder: "simplescreenrecorder"
 
   # programing
-  programming_languages: "nodejs npm python3 python-pip python-virtualenv"
-  programming_tools: "git neovim"
+  programming: "python python-pip python-virtualenv"
+  programming_tools: "git"
 }
 
 # -----------------------------------------------------------------------
 
 # TODO: ignore these packages
 # ignore_packages = {
-#     desktop: "xfce4-appfinder xfce4-power-manager"
+#     desktop: "xfce4-appfinder"
 # }
 
 # TODO: arch user repositories

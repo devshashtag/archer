@@ -111,7 +111,6 @@ function welcomeMessage() {
     message "welcome to ${important}archer {norm}- Installing ${important}$1" "" "exit"
 }
 
-
 # return array values
 function arrayValues() {
     sed 's|\w*=||g' <<<"$@"
