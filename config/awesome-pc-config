@@ -51,7 +51,7 @@ system_packages = {
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   window_manager: "awesome"
   archive_manager: "atool zip unzip unrar"
-  file_manager: "ranger"
+  file_manager: "ranger python-bidi"
   compositor: "picom"
   launcher: "rofi"
   terminal: "alacritty"
