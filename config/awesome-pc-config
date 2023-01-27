@@ -54,7 +54,7 @@ system_packages = {
   file_manager: "ranger python-bidi"
   compositor: "picom"
   launcher: "rofi"
-  terminal: "alacritty"
+  terminal: "terminator"
   #task_manager
 }
 
