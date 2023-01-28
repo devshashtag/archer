@@ -46,7 +46,7 @@ system_packages = {
   sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils volumeicon"
   fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu" 
   icons: "papirus-icon-theme"
-  tools: "man-db btop neofetch"
+  tools: "man-db btop neofetch ntp"
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   window_manager: "awesome"
