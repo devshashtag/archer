@@ -44,10 +44,10 @@ system_packages = {
   window_system: "xorg-server xorg-apps xorg-xinit xterm xclip"
   video_drivers: "xf86-video-intel"
   network: "networkmanager network-manager-applet"
-  sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils volumeicon"
-  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu" 
+  sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils"
+  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu nerd-fonts-profont" # nerd-fonts unofficial repos
   icons: "papirus-icon-theme"
-  tools: "man-db btop neofetch ntp tree vnstat git" # youtube-dl tmux numlockx
+  tools: "man-db btop neofetch ntp tree vnstat git yay" # youtube-dl tmux numlockx
   # sshfs: FUSE client based on the SSH File Transfer Protocol
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
@@ -94,7 +94,6 @@ application_packages = {
 # packages_aur = {
 #     jalali_calendar: "jcal-git"
 #     remote_desktop: "anydesk-bin"
-#     proxy: "obfs4proxy"
 # }
 #
 # -----------------------------------------------------------------------
