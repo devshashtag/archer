@@ -2,7 +2,7 @@
 
 # ask to unmount partitions if its mounted
 function partitionsUnmount() {
-    header "PARTITIONS > ${important}unmount\n"
+    header "BASE > ${important}unmount\n"
 
     grep -qi false <<< "$(YN "do you want to ${important}unmount partitions")" && return
 
@@ -36,7 +36,7 @@ do you want to umount it"
 
 # format partitions
 function partitionsFormat() {
-    header "PARTITIONS > ${important}format\n"
+    header "BASE > ${important}format\n"
 
     grep -qi false <<< "$(YN "do you want to ${important}format partitions")" && return
 
@@ -80,7 +80,7 @@ function packagesLoadCache() {
     # check cache is eanbled
     [[ "${options[cache]}" != true ]] && return
 
-    header "PACKAGES > ${important}load packages cache"
+    header "BASE > ${important}load packages cache"
 
     local cache_path="${options[cache_path]}"
     local root_dir="${partitions[root_mount]}"
@@ -100,7 +100,7 @@ function packagesLoadCache() {
 
 # install base packages with pacstrap
 function installBasePackages() {
-    header "PACSTRAP > ${important}install base packages"
+    header "BASE > ${important}install base packages"
 
     printArray "core packages:" "${core_packages[@]}"
 
@@ -120,7 +120,7 @@ function installBasePackages() {
 
 # generate /etc/fstab file
 function generateFstab() {
-    header "FSTAB > ${important}generate\n"
+    header "BASE > ${important}generate\n"
 
     grep -qi false <<< "$(YN "do you want to generate fstab")" && return
 
@@ -132,7 +132,7 @@ function generateFstab() {
         return
     }
 
-    cmd "genfstab -U '$root_dir' >> '$fstab_conf'"
+    cmd "genfstab -U '$root_dir'BASE >> '$fstab_conf'"
 }
 
 # display how to arch-chroot to mounted root

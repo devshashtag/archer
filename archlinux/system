@@ -57,7 +57,7 @@ function changePasswords() {
 }
 
 function installBootloader() {
-    header "BOOTLOADER > ${important}GRUB\n"
+    header "SYSTEM > ${important}GRUB\n"
 
     grep -qi false <<< "$(YN "do you want to install ${important}grub{norm} bootloader")" && return
 
@@ -84,7 +84,7 @@ function unofficialRepo() {
 }
 
 function updatePackages() {
-    header "PACMAN > ${important}update packages"
+    header "SYSTEM > ${important}update packages"
 
     grep -qi false <<< "$(YN "do you want to ${important}update packages{norm}")" && return
 
@@ -93,7 +93,7 @@ function updatePackages() {
 
 # install other packages
 function installOtherPackages() {
-    header "PACMAN > install ${important}system{norm}, ${important}desktop{norm} packages"
+    header "SYSTEM > install ${important}system{norm}, ${important}desktop{norm} packages"
 
     printArray "system packages:" "${system_packages[@]}"
     printArray "application packages:" "${application_packages[@]}"
