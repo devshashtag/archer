@@ -78,6 +78,7 @@ application_packages = {
   # programing
   node: "nodejs npm"
   python: "python3 python-pip python-virtualenv"
+  editor: "vscodium-bin"
 }
 
 # -----------------------------------------------------------------------
