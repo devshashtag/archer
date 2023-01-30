@@ -1,8 +1,8 @@
 # ------------------------------ options --------------------------------
 
 options = {
-  username: "neo"
-  hostname: "dev"
+  username: "devs"
+  hostname: "hashtag"
 
   lightdm_session: "awesome"
   default_shell: "fish"
