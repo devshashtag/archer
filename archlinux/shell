@@ -79,11 +79,11 @@ function cmd() {
 
 # read Yes/no
 function YN() {
-    read -p "$normal$(sed "s/{norm}/$normal/g" <<<"$1") ${green}Y$black/${red}n$black > $blue" req
+    read -p "$normal$(sed "s/{norm}/$normal/g" <<<"$1") ${green}Y$black/${red}n$black > $blue" res
     echo -ne "$normal"
 
     # default is false
-    if [[ "$req" =~ ^[yY] ]]; then
+    if [[ "$res" =~ ^[yY] ]]; then
         echo -n true
     else
         echo -n false
@@ -97,11 +97,11 @@ function cmdYN() {
     [[ -z "$3" && -z "$2" ]] && return
 
     # run command
-    local req="$(YN "$1")"
+    local res="$(YN "$1")"
 
-    if grep -qi true <<< "$req"; then
+    if grep -qi true <<< "$res"; then
         cmd "$2"
-    elif grep -qi false <<< "$req"; then
+    elif grep -qi false <<< "$res"; then
         cmd "$3"
     fi
 }
