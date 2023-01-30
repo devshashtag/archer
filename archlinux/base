@@ -132,7 +132,7 @@ function generateFstab() {
         return
     }
 
-    cmd "genfstab -U '$root_dir'BASE >> '$fstab_conf'"
+    cmd "genfstab -U '$root_dir' >> '$fstab_conf'"
 }
 
 # display how to arch-chroot to mounted root

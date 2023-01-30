@@ -93,7 +93,7 @@ function updatePackages() {
 
 # install other packages
 function installOtherPackages() {
-    header "SYSTEM > install ${important}system{norm}, ${important}desktop{norm} packages"
+    header "SYSTEM > install ${important}system{norm}, ${important}application{norm} packages"
 
     printArray "system packages:" "${system_packages[@]}"
     printArray "application packages:" "${application_packages[@]}"
