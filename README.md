@@ -10,7 +10,9 @@ a simple script that helps you to install and config you'r **packages**, **bootl
 
 
 # warning
-**if you'r not a professionals arch users, please dont use this script**
+- if you'r not a **professionals arch user**, please **DO NOT USE** Archer
+
+- you have to create your partitions before running Archer
 
 
 # options
@@ -24,7 +26,7 @@ i created 3 config examples under `archer/config` folder:
 - default-config
 - xfce-pc-config
 
-*this script loads a `xfce-pc-config` by default*
+*Archer loads a `xfce-pc-config` by default*
 
 you can change default config permanently in **Archer** script using `config_path` variable 
 
@@ -61,7 +63,8 @@ options = {
 
 2) partition management:
 you have to create your partitions before running Archer
-and define you'r partitions here:
+
+and then define you'r partitions here:
 
 ```bash
 partitions = {
