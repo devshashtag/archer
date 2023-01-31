@@ -6,13 +6,13 @@ a simple script that helps you to install and config you'r **packages**, **bootl
 - debug mode
 - local pacman packages support `/var/cache/pacman/pkg`
 
-**TODO: i will add all features soon**
+**TODO: i'll add all features soon**
 
 
 # warning
 - if you'r not a **professional arch user**, please **DO NOT USE** Archer
 
-- you have to create your partitions before running Archer
+- you have to create you'r partitions before running Archer
 
 
 # options
@@ -26,11 +26,11 @@ i created 3 config examples under `archer/config` folder:
 - default-config
 - xfce-pc-config
 
-*Archer loads a `xfce-pc-config` by default*
+*Archer loads `xfce-pc-config` by default*
 
 you can change default config permanently in **Archer** script using `config_path` variable 
 
-or use -c option: `./archer -b -c "path/to/file-config"`
+or use `-c` option: `./archer -b -c "path/to/file-config"`
 
 
 # how to config
@@ -45,7 +45,7 @@ options = {
   username: "yourName"
   hostname: "yourHostName" 
 
-  lightdm_session: "xfce" # set default session that lightdm can load your desktop or window manager
+  lightdm_session: "xfce" # set default session that lightdm can load you'r desktop or window manager
   default_shell: "fish"   # set default shell for this user
 
   # local pacman cache 
@@ -65,7 +65,7 @@ options = {
 
 2) partition management:
 
-you have to create your partitions before running Archer
+you have to create you'r partitions before running Archer
 
 and then define you'r partitions here:
 
@@ -96,7 +96,7 @@ partitions = {
 
 
   # you can add any partition that you want here
-  # just follow the syntax and Archer detect your new partition here
+  # just follow the syntax and Archer detect you'r new partition here
 
   # name_part: "/dev/sdaX"  # which partition
   # name_mount: "/mnt/path" # where to mount
@@ -115,7 +115,7 @@ system_packages      - archer install these packages in system section (using pa
 application_packages - archer install these packages in system section (using pacman)
 ```
 
-**titles** doesn't matter for Archer:
+**packages titles** doesn't matter for Archer:
 
 ![alt text](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages.png?raw=true)
 
@@ -127,8 +127,9 @@ archer only use these titles to display **packages titles**:
 
 and removes spaces inside these arrays.
 
-if your display_cmd or debug options is true archer displays commands before running:
+if you'r `display_cmd` or `debug` options is `true` archer **displays commands** before **running**:
 
 ![alt text](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages_display_cmd.png?raw=true)
 
 
+TODO: **I'LL ADD MORE INFORMATION ABOUT ARCHER LATER**
