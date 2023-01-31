@@ -108,7 +108,7 @@ function cmdYN() {
 
 function welcomeMessage() {
     newline_sep
-    message "welcome to ${important}archer {norm}- Installing ${important}$1" "" "exit"
+    message "welcome to ${important}Archer {norm}- Installing ${important}$1" "" "exit"
 }
 
 # return array values
@@ -158,7 +158,7 @@ function header() {
     message "$1"
 }
 
-# archer help
+# Archer help
 function archerHelp() {
     newline_sep
 
@@ -173,13 +173,13 @@ function archerHelp() {
     desc="$black"
     sep="\t$red -> $desc"
 
-    message "${important}archer {norm}commands:
+    message "${important}Archer {norm}commands:
 
     $arg -b $sep_arg --base    $sep install base section [before arch-chroot]
     $arg -s $sep_arg --system  $sep install system section [after arch-chroot]
-    $arg -c $sep_arg --config  $param'config file path'     $sep installer config
+    $arg -c $sep_arg --config  $param'config file path'     $sep Archer config
     $arg -d $sep_arg --debug   $sep only display commands [debug mode]
-    $arg -h $sep_arg --help    $sep archer help\n" | column -Lt -s $'\t'
+    $arg -h $sep_arg --help    $sep Archer help\n" | column -Lt -s $'\t'
 
     exit
 }
