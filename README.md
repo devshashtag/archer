@@ -34,7 +34,7 @@ or use -c option: `./archer -b -c "path/to/file-config"`
 # how to config
 config file uses a bash like syntax that will be converted to bash variables later
 
-1) we have to define options first:
+1) user, Archer options:
 
 ```bash
 options = {
@@ -59,4 +59,41 @@ options = {
 ```
 
 
+2) partition management:
+you have to create your partitions before running Archer
+and define you'r partitions here:
 
+```bash
+partitions = {
+  # defines which partition to install grub on
+  grub_install: "/dev/sda"
+
+  # root partition
+  root_part: "/dev/sda2"
+  root_mount: "/mnt"
+  root_fmt: "mkfs.ext4"
+
+  # i dont use home - instead i use a DATA partition
+  # home
+  # home_part: "/dev/sda5"
+  # home_mount: "/mnt/home"
+  # home_fmt: "mkfs.ext4"
+
+  # swap
+  swap_part: "/dev/sda3"
+  swap_fmt: "mkswap"
+
+  # TODO: required uefi support
+  # uefi_part: "/dev/sda4"
+  # uefi_mount: "/boot/efi"
+  # uefi_fmt: "mkfs.vfat -F32"
+
+
+  # you can add any partition that you want here
+  # just follow the syntax and Archer detect your new partition here
+
+  # name_part: "/dev/sdaX"  # which partition
+  # name_mount: "/mnt/path" # where to mount
+  # name_fmt: "mkfs.ext4"   # command for formating this partition
+}
+```
