@@ -10,7 +10,7 @@ a simple script that helps you to install and config you'r **packages**, **bootl
 
 
 # warning
-- if you'r not a **professionals arch user**, please **DO NOT USE** Archer
+- if you'r not a **professional arch user**, please **DO NOT USE** Archer
 
 - you have to create your partitions before running Archer
 
@@ -36,7 +36,9 @@ or use -c option: `./archer -b -c "path/to/file-config"`
 # how to config
 config file uses a bash like syntax that will be converted to bash variables later
 
-1) user, Archer options:
+NOTE: **use comments like you'r using them in bash scripts**
+
+1) Archer, user options:
 
 ```bash
 options = {
@@ -62,6 +64,7 @@ options = {
 
 
 2) partition management:
+
 you have to create your partitions before running Archer
 
 and then define you'r partitions here:
@@ -100,3 +103,32 @@ partitions = {
   # name_fmt: "mkfs.ext4"   # command for formating this partition
 }
 ```
+
+
+3) package management:
+
+Archer uses 3 arrays for manage packages:
+
+```
+core_packages        - archer install these packages in base section (using pacstrap)
+system_packages      - archer install these packages in system section (using pacman)
+application_packages - archer install these packages in system section (using pacman)
+```
+
+**titles** doesn't matter for Archer:
+
+![alt text](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages.png?raw=true)
+
+you can change `editor` to anything you want like: `my_editor`
+
+archer only use these titles to display **packages titles**:
+
+![alt text](https://github.com/devshashtag/archer/blob/main/screenshots/packages.png?raw=true)
+
+and removes spaces inside these arrays.
+
+if your display_cmd or debug options is true archer displays commands before running:
+
+![alt text](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages_display_cmd.png?raw=true)
+
+
