@@ -179,7 +179,6 @@ function archerHelp() {
     $arg -s $sep_arg --system  $sep install system section [after arch-chroot]
     $arg -c $sep_arg --config  $param'config file path'     $sep installer config
     $arg -d $sep_arg --debug   $sep only display commands [debug mode]
-    $arg -c $sep_arg --cache   $sep use local packages cache [BEFORE PACSTRAP]
     $arg -h $sep_arg --help    $sep archer help\n" | column -Lt -s $'\t'
 
     exit
