@@ -45,7 +45,7 @@ system_packages = {
   video_drivers: "xf86-video-intel"
   network: "networkmanager network-manager-applet"
   sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils"
-  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu nerd-fonts-profont" # nerd-fonts unofficial repos
+  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-profont-nerd"
   icons: "papirus-icon-theme"
   tools: "man-db btop neofetch ntp tree vnstat git yay" # youtube-dl tmux numlockx
   # sshfs: FUSE client based on the SSH File Transfer Protocol
