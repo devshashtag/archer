@@ -7,4 +7,4 @@
 - [ ] pacstrap use local cache "pacstrap -c /mnt/ --cachedir /path_to_custom_cache_dir"
 - [ ] install efibootmgr for uefi systems
 - [ ] change grub timeout to 0
-
+- [ ] convert echo true to echo -n true and false 
