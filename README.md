@@ -16,7 +16,7 @@ a simple script that helps you to install and config you'r **packages**, **bootl
 
 
 # options
-![help](https://github.com/devshashtag/archer/blob/main/screenshots/help.png?raw=true)
+![help](screenshots/help.png?raw=true)
 
 
 # how to load config
@@ -117,19 +117,19 @@ application_packages - archer install these packages in system section (using pa
 
 **packages titles** doesn't matter for Archer:
 
-![base packages](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages.png?raw=true)
+![base packages](screenshots/base_packages.png?raw=true)
 
 you can change `editor` to anything you want like: `my_editor`
 
 archer only use these titles to display **packages titles**:
 
-![config packages](https://github.com/devshashtag/archer/blob/main/screenshots/packages.png?raw=true)
+![config packages](screenshots/packages.png?raw=true)
 
 and removes spaces inside these arrays.
 
 if you'r `display_cmd` or `debug` options is `true` archer **displays commands** before **running**:
 
-![base packages display command](https://github.com/devshashtag/archer/blob/main/screenshots/base_packages_display_cmd.png?raw=true)
+![base packages display command](screenshots/base_packages_display_cmd.png?raw=true)
 
 
 TODO: **I'LL ADD MORE INFORMATION ABOUT ARCHER LATER**
