@@ -83,7 +83,7 @@ application_packages = {
 #
 # TODO: ignore these packages
 # ignore_packages = {
-#     desktop: "xfce4-appfinder xfce4-power-manager"
+#     desktop: "xfce4-power-manager"
 # }
 #
 # -----------------------------------------------------------------------
