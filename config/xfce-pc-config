@@ -71,7 +71,7 @@ application_packages = {
   image_manipulation: "gimp"
   screen_recorder: "simplescreenrecorder"
   messenger: "telegram-desktop"
-  # email_client: "thunderbrid"
+  email_client: "thunderbird thunderbird-dark-reader"
   # translator: "crow-translate" # unofficial repos
 
   # programing
