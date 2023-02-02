@@ -47,7 +47,7 @@ system_packages = {
   sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils"
   fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-profont-nerd"
   icons: "papirus-icon-theme"
-  tools: "man-db btop neofetch ntp tree vnstat git yay" # youtube-dl tmux numlockx
+  tools: "man-db btop neofetch ntp tree vnstat git yay fd ripgrep" # youtube-dl tmux numlockx
   # sshfs: FUSE client based on the SSH File Transfer Protocol
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
