@@ -70,6 +70,7 @@ function partitionsFormat() {
         }
 
         # mount others
+        cmd "mkdir -p $part_mount"
         cmd "mount $part $part_mount"
         message "$yellow$part{norm} mounted sucessfully."
     done
