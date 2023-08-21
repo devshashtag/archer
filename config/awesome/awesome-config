@@ -1,0 +1,89 @@
+# ------------------------------ options --------------------------------
+
+options = {
+  username: "devs"
+  hostname: "hashtag"
+
+  lightdm_session: "awesome"
+  default_shell: "/bin/fish"
+
+  # pacman cache
+  cache: "true"
+  cache_path: "pkg"
+
+  # archer options
+  display_cmd: "true"
+  debug: "false"
+}
+
+# ------------------------ partition management -------------------------
+
+partitions = {
+  grub_install: "/dev/sda"
+
+  root_part: "/dev/sda2"
+  root_mount: "/mnt"
+  root_fmt: "mkfs.ext4"
+
+  swap_part: "/dev/sda3"
+  swap_fmt: "mkswap"
+}
+
+# ---------------------------- base packages ----------------------------
+
+core_packages = {
+  base: "base base-devel linux linux-firmware"
+  shell: "bash bash-completion fish"
+  boot_loader: "grub" # efibootmgr
+  editor: "neovim"
+}
+
+# --------------------------- system packages ---------------------------
+
+system_packages = {
+  window_system: "xorg-server xorg-xinit xorg-apps xterm xclip"
+  x11_drivers: "xf86-video-intel xorg-xinput xf86-input-libinput"
+  network: "networkmanager network-manager-applet"
+  sound: "alsa-utils pulseaudio pulseaudio-alsa"
+  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-nerd-fonts-symbols"
+  icons: "papirus-icon-theme"
+  tools: "man-db man-pages yay git zip unzip unrar btop neofetch ripgrep ntp" # tree vnstat
+
+  display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
+  window_manager: "awesome-git"
+  wm_requirements: "acpi"
+  #compositor: "picom"
+  #notification: "dunst"
+  file_manager: "ranger highlight atool trash-cli udisks2"
+  screen_lock: "betterlockscreen"
+  terminal_emulator: "alacritty"
+  application_launcher: "rofi" #dmenu"
+  # status_bar: "polybar"
+}
+
+# --------------------------- desktop packages ---------------------------
+
+application_packages = {
+  browser: "librewolf"
+  screenshot: "flameshot"
+  media_player: "mpv"
+  image_viewer: "viewnior"
+  document_viewer: "zathura zathura-pdf-poppler"
+  clipboard_manager: "copyq"
+  #image_editor: "gimp"
+  #screen_recorder: "simplescreenrecorder"
+  #messenger: "telegram-desktop"
+  proxy: "tor proxychains-ng"
+
+  # programing
+  #node: "nodejs npm"
+  python: "python3 python-pip python-virtualenv"
+}
+
+# check to add: newsboat, x-bind-keys
+# --------------------------- AUR packages---------------------------
+# AUR: "jcal-git anydesk-bin crow-translate obfs4proxy"
+
+# desktop_background: "nitrogen"
+# programming_editor: "vscodium-bin"
+# volume_tray: "volumeicon"
