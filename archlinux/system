@@ -38,7 +38,7 @@ function addUser() {
     grep -qi false <<< "$(YN "do you want to add ${important}${options[username]}{norm} user")" && return
 
     # adding user to group wheel and defined user shell
-    cmd "useradd -m -g users -G wheel -s '/bin/${options[default_shell]}' '${options[username]}'"
+    cmd "useradd -m -g users -G wheel -s '${options[default_shell]}' '${options[username]}'"
 
     # allow wheel group users to use sudo
     cmd "sed -i 's/# \(%wheel ALL=(ALL:ALL) ALL\)/\1/g' /etc/sudoers"
@@ -108,7 +108,7 @@ function installOtherPackages() {
         return
     }
 
-    cmd "pacman -S $pkgs"
+    cmd "pacman -S --needed $pkgs"
 }
 
 # enable services
