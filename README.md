@@ -1,54 +1,55 @@
 # Archer
+
 a simple script that helps you to install and config you'r **packages**, **bootloader**, ...
 
-
 # features
+
 - debug mode
 - local pacman packages support `/var/cache/pacman/pkg`
 
 **TODO: i'll add all features soon**
 
-
 # warning
+
 - if you'r not a **professional arch user**, please **DO NOT USE** Archer
 
 - you have to create you'r partitions before running Archer
 
-
 # options
+
 ![help](screenshots/help.png?raw=true)
 
-
 # how to load config
+
 i created 3 config examples under `archer/config` folder:
 
 - awesome-pc-config
 - default-config
 - xfce-pc-config
 
-*Archer loads `xfce-pc-config` by default*
+_Archer loads `xfce-pc-config` by default_
 
-you can change default config permanently in **Archer** script using `config_path` variable 
+you can change default config permanently in **Archer** script using `config_path` variable
 
 or use `-c` option: `./archer -b -c "path/to/file-config"`
 
-
 # how to config
+
 config file uses a bash like syntax that will be converted to bash variables later
 
 NOTE: **use comments like you'r using them in bash scripts**
 
-1) Archer, user options:
+1. Archer, user options:
 
 ```bash
 options = {
   username: "yourName"
-  hostname: "yourHostName" 
+  hostname: "yourHostName"
 
   lightdm_session: "xfce" # set default session that lightdm can load you'r desktop or window manager
-  default_shell: "fish"   # set default shell for this user
+  default_shell: "/bin/fish"   # set default shell for this user
 
-  # local pacman cache 
+  # local pacman cache
   cache: "false"          # if you have any pacman packages caches set this option to true
   cache_path: "pkg"       # set packages folder
 
@@ -62,8 +63,7 @@ options = {
 }
 ```
 
-
-2) partition management:
+2. partition management:
 
 you have to create you'r partitions before running Archer
 
@@ -104,8 +104,7 @@ partitions = {
 }
 ```
 
-
-3) package management:
+3. package management:
 
 Archer uses 3 arrays for manage packages:
 
@@ -130,6 +129,5 @@ and removes spaces inside these arrays.
 if you'r `display_cmd` or `debug` options is `true` archer **displays commands** before **running**:
 
 ![base packages display command](screenshots/base_packages_display_cmd.png?raw=true)
-
 
 TODO: **I'LL ADD MORE INFORMATION ABOUT ARCHER LATER**
