@@ -47,18 +47,18 @@ system_packages = {
   sound: "alsa-utils pulseaudio pulseaudio-alsa"
   fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-nerd-fonts-symbols"
   icons: "papirus-icon-theme"
-  tools: "man-db man-pages yay git zip unzip unrar btop neofetch ripgrep ntp" # tree vnstat
+  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools" # btop tree vnstat
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   window_manager: "awesome-git"
   wm_requirements: "acpi"
+
   #compositor: "picom"
-  #notification: "dunst"
+  notification: "dunst"
   file_manager: "ranger highlight atool trash-cli udisks2"
   screen_lock: "betterlockscreen"
   terminal_emulator: "alacritty"
-  application_launcher: "rofi" #dmenu"
-  # status_bar: "polybar"
+  application_launcher: "rofi"
 }
 
 # --------------------------- desktop packages ---------------------------
@@ -70,20 +70,18 @@ application_packages = {
   image_viewer: "viewnior"
   document_viewer: "zathura zathura-pdf-poppler"
   clipboard_manager: "copyq"
-  #image_editor: "gimp"
-  #screen_recorder: "simplescreenrecorder"
-  #messenger: "telegram-desktop"
+  image_editor: "gimp"
+  screen_recorder: "simplescreenrecorder"
+  messenger: "telegram-desktop"
   proxy: "tor proxychains-ng"
 
   # programing
-  #node: "nodejs npm"
+  node: "nodejs npm"
   python: "python3 python-pip python-virtualenv"
+  programming_editor: "vscodium-bin"
 }
 
 # check to add: newsboat, x-bind-keys
 # --------------------------- AUR packages---------------------------
 # AUR: "jcal-git anydesk-bin crow-translate obfs4proxy"
 
-# desktop_background: "nitrogen"
-# programming_editor: "vscodium-bin"
-# volume_tray: "volumeicon"
