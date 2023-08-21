@@ -37,8 +37,8 @@ partitions = {
 
 core_packages = {
   base: "base base-devel linux linux-firmware"
-  shell: "fish bash bash-completion"
-  boot: "grub"
+  shell: "bash bash-completion fish"
+  boot_loader: "grub" # efibootmgr os-prober
   editor: "neovim"
 }
 
@@ -46,17 +46,16 @@ core_packages = {
 
 system_packages = {
   window_system: "xorg-server xorg-apps xorg-xinit xterm xclip"
-  keyboard_input: "xorg-xinput xf86-input-libinput"
-  video_drivers: "xf86-video-intel"
+  x11_drivers: "xorg-xinput xf86-input-libinput xf86-video-intel"
   network: "networkmanager network-manager-applet"
   sound: "alsa-utils pulseaudio pulseaudio-alsa pavucontrol"
-  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-nerd-fonts-symbols"
+  fonts: "ttf-opensans ttf-dejavu ttf-fira-code ttf-nerd-fonts-symbols noto-fonts"
   icons: "papirus-icon-theme"
+  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools" # btop tree vnstat
+
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
-  desktop: "xfce4 xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager xfce4-screensaver"
-  file_manager: "thunar gvfs gvfs-mtp file-roller zip unzip unrar"
-  tools: "man-db btop neofetch ntp tree vnstat git yay ripgrep-all" # youtube-dl tmux numlockx
-  application_launcher: "rofi"
+  desktop: "xfce4 xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager"
+  file_manager: "thunar gvfs gvfs-mtp thunar-archive-plugin file-roller"
 }
 
 # --------------------------- desktop packages ---------------------------
@@ -66,7 +65,7 @@ application_packages = {
   screenshot: "flameshot"
   media_player: "mpv"
   image_viewer: "viewnior"
-  document_viewer: "okular"
+  document_viewer: "zathura zathura-pdf-poppler"
   clipboard_manager: "copyq"
   image_editor: "gimp"
   screen_recorder: "simplescreenrecorder"
@@ -81,4 +80,6 @@ application_packages = {
 
 # --------------------------- AUR packages---------------------------
 # AUR: "jcal-git anydesk-bin crow-translate obfs4proxy"
+# tools: "btop tree vnstat"
+# image_editor: "gimp"
 
