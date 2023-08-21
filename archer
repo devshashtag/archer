@@ -13,7 +13,7 @@ source archlinux/system
 
 # default values
 section="base"
-config_path="config/xfce-pc-config"
+config_path="config/xfce-config/xfce-config"
 option_debug=false
 
 # parse arguments
