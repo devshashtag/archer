@@ -3,7 +3,7 @@ options = {
   hostname: "lover"
 
   lightdm_session: "xfce"
-  default_shell: "fish"
+  default_shell: "/bin/fish"
 
   # local pacman cache
   cache: "false"
@@ -68,6 +68,7 @@ system_packages = {
 
 application_packages = {
     desktop: "xfce4 xfce4-notifyd"
+
     plugins: "xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager"
     # other plugins
     #xfce4-battery-plugin - usage: laptop

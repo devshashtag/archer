@@ -5,10 +5,10 @@ options = {
   hostname: "hashtag"
 
   lightdm_session: "xfce"
-  default_shell: "fish"
+  default_shell: "/bin/fish"
 
   # pacman cache
-  cache: "false"
+  cache: "true"
   cache_path: "pkg"
 
   # archer options
@@ -37,8 +37,8 @@ partitions = {
 
 core_packages = {
   base: "base base-devel linux linux-firmware"
-  shell: "bash bash-completion fish"
-  boot_loader: "grub"
+  shell: "fish bash bash-completion"
+  boot: "grub"
   editor: "neovim"
 }
 
@@ -49,58 +49,36 @@ system_packages = {
   keyboard_input: "xorg-xinput xf86-input-libinput"
   video_drivers: "xf86-video-intel"
   network: "networkmanager network-manager-applet"
-  network_tools: "openssh"
-  sound: "pulseaudio pulseaudio-alsa pavucontrol alsa-utils"
-  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-profont-nerd"
+  sound: "alsa-utils pulseaudio pulseaudio-alsa pavucontrol"
+  fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-nerd-fonts-symbols"
   icons: "papirus-icon-theme"
-  tools: "man-db btop neofetch ntp tree vnstat git yay fd ripgrep" # youtube-dl tmux numlockx
-  # sshfs: FUSE client based on the SSH File Transfer Protocol
-
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
-
-  desktop: "xfce4 xfce4-notifyd"
-  plugins: "xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager xfce4-battery-plugin"
-  file_manager: "thunar thunar-volman thunar-archive-plugin gvfs gvfs-mtp ntfs-3g"
-  archive_manager: "file-roller atool zip unzip unrar"
+  desktop: "xfce4 xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager xfce4-screensaver"
+  file_manager: "thunar gvfs gvfs-mtp file-roller zip unzip unrar"
+  tools: "man-db btop neofetch ntp tree vnstat git yay ripgrep-all" # youtube-dl tmux numlockx
+  application_launcher: "rofi"
 }
 
 # --------------------------- desktop packages ---------------------------
 
 application_packages = {
-  browser: "firefox"
+  browser: "chromium"
   screenshot: "flameshot"
   media_player: "mpv"
   image_viewer: "viewnior"
   document_viewer: "okular"
-  download_manager: "aria2"
   clipboard_manager: "copyq"
-  image_manipulation: "gimp"
+  image_editor: "gimp"
   screen_recorder: "simplescreenrecorder"
   messenger: "telegram-desktop"
-  email_client: "thunderbird thunderbird-dark-reader"
-  # translator: "crow-translate" # unofficial repos
+  proxy_tools: "tor proxychains-ng"
 
   # programing
   node: "nodejs npm"
   python: "python3 python-pip python-virtualenv"
-
-  # proxy
-  proxy_tools: "tor proxychains-ng"
+  programming_tools: "vscodium-bin"
 }
 
-# -----------------------------------------------------------------------
-#
-# TODO: ignore these packages
-# ignore_packages = {
-#     desktop: "xfce4-power-manager"
-# }
-#
-# -----------------------------------------------------------------------
-#
-# TODO: arch user repositories
-# packages_aur = {
-#     jalali_calendar: "jcal-git"
-#     remote_desktop: "anydesk-bin"
-# }
-#
-# -----------------------------------------------------------------------
+# --------------------------- AUR packages---------------------------
+# AUR: "jcal-git anydesk-bin crow-translate obfs4proxy"
+
