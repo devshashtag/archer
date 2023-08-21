@@ -3,7 +3,7 @@
 function trim() {
     stdin="$(cat /dev/stdin)"
 
-    sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< "$stdin"
+    sed -e 's/^ *//' -e 's/ *$//' <<< "$stdin"
 }
 
 function trimChars() {
@@ -23,36 +23,36 @@ function getItems() {
     grep -o "$name=([^)]*)" <<<"$config" |sed "s|$name=(\([^)]*\))|\1|"
 }
 
-function fixObjectSyntax() {
+function convertToArray() {
     name="$1"
-
     items="$(getItems "$name")"
 
     fixedKeys="$(sed "s|\(\w*\)=|[\1]=|g" <<<"$items")"
-
     fixedObject="declare -A $name=($fixedKeys)"
 
-    config="$(sed "s|$name=(\([^)]*\))|$fixedObject|" <<<"$config")"
+    config="$(sed "s|$name=(\([^)]*\))|$fixedObject|" <<<"$config"| trimChars '=()')"
 }
 
 # read config
 config="$(sed 's/#.*$//g' "$1" | # remove comments
-    sed '/^\s*$/d'   |  # remove empty lines
-    tr '\n' ' '      |  # remove new lines
-    tr ':{}' '=()'   |  # fix objects syntax
-    trimChars '=()'  |  # trim spaces around = (  ) chars
-    tr -s ' '        |  # replace sequence of repeated spaces
-    sed 's|)|) ; |g' |  # add space, ; after objects
+    sed '/^ *$/d'     |  # remove empty lines
+    tr '\n' ' '       |  # remove new lines
+    tr -s ' '         |  # replace sequence of repeated spaces
+    tr ':{}' '=()'    |  # convert colon, open, close brackets to bash array compatibable
+    trimChars '=()"'  |  # trim spaces around = ( ) chars
+    sed 's/\w*=/ &/g' |  # add space at start of each line
+    tr -s ' '         |  # replace sequence of repeated spaces
+    sed 's|)|);|g'    |  # add ; at end of each array
     trim)"
 
-# fix core-objects syntax
-core_objects="partitions options"
+# convert configs to arrays
+objects="partitions options"
 
-for name in $core_objects; do
-   fixObjectSyntax "$name"
+for name in $objects; do
+   convertToArray "$name"
 done
 
-# set config variables
+# create config variables
 eval "$config"
 
 # test
