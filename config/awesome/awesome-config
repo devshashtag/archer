@@ -47,7 +47,7 @@ system_packages = {
   sound: "alsa-utils pulseaudio pulseaudio-alsa"
   fonts: "noto-fonts ttf-fira-code ttf-opensans ttf-dejavu ttf-nerd-fonts-symbols"
   icons: "papirus-icon-theme"
-  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools" # btop tree vnstat
+  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools jq" # btop tree vnstat
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   window_manager: "awesome-git"

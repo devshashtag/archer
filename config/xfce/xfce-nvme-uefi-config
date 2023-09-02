@@ -51,7 +51,7 @@ system_packages = {
   sound: "alsa-utils pulseaudio pulseaudio-alsa pavucontrol"
   fonts: "ttf-opensans ttf-dejavu ttf-fira-code ttf-nerd-fonts-symbols noto-fonts"
   icons: "papirus-icon-theme"
-  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools" # btop tree vnstat
+  tools: "man-db man-pages yay git zip unzip unrar neofetch ntp ripgrep-all dosfstools jq" # btop tree vnstat
 
   display_manager: "lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
   desktop: "xfce4 xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-xkb-plugin xfce4-cpugraph-plugin xfce4-taskmanager"

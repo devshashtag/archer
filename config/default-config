@@ -62,7 +62,7 @@ system_packages = {
     fonts: "ttf-dejavu ttf-hack ttf-fira-code ttf-opensans" # noto-fonts"
     icons: "papirus-icon-theme"
 
-    system_tools: "zip unzip unrar neofetch ripgrep htop tree man yay vnstat"
+    system_tools: "zip unzip unrar neofetch ripgrep htop tree man yay vnstat jq"
     #system_tools: "youtube-dl tmux numlockx"
 }
 
