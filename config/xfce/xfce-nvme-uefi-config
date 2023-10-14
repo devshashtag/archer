@@ -65,7 +65,7 @@ application_packages = {
   screenshot: "flameshot"
   media_player: "mpv"
   image_viewer: "viewnior"
-  document_viewer: "zathura zathura-pdf-poppler"
+  document_viewer: "okular"
   clipboard_manager: "copyq"
   image_editor: "gimp"
   screen_recorder: "simplescreenrecorder"
